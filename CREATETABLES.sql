@@ -1,1 +1,1 @@
-/* This is the document for creating the tables */
+/* This is the document for creating the tables and insert the sample data */
