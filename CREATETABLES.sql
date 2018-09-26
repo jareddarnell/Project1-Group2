@@ -1,5 +1,7 @@
 /* This is the document for creating the tables and insert the sample data */
 
+DROP TABLE IF EXISTS [Consoles];
+
 CREATE TABLE [Consoles]
 (
 	[ConsoleID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -7,6 +9,9 @@ CREATE TABLE [Consoles]
 	[ConsoleModel] VARCHAR(64) NOT NULL,
 	[SubModel] VARCHAR(64) NULL
 );
+
+--ALTER TABLE CONSOLES
+--ADD CONSTRAINT [PK_ConsoleID] PRIMARY KEY(ConsoleID);
 
 INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Switch', NULL)
 INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Microsoft', 'Xbox', '360')
@@ -35,6 +40,11 @@ CREATE TABLE [Games]
 	)
 );
 
+--ALTER TABLE [GAMES]
+--ADD CONSTRAINT [FK_ConsoleID] FOREIGN KEY (ConsoleID)
+--	REFERENCES [CONSOLES](ConsoleID)
+--;
+
 INSERT [Games] (GameTitle, ConsoleID, Rating, PlayerNumber, Category) VALUES ('Call of Duty 4: Modern Warfare', 2, 'M', '1-4', 'First-person shooter')
 
 CREATE TABLE [Purchases]
@@ -51,7 +61,7 @@ CREATE TABLE [Purchases]
 	)
 );
 
-INSERT [Purchases] (GameID, ConsoleID, PurchaseDate, PurchaseStore) VALUES (1, 2, '5-Nov-07', 50, 'GameStop')
+INSERT [Purchases] (GameID, ConsoleID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (1, 2, '5-Nov-07', 50, 'GameStop')
 
 CREATE TABLE [ConsoleGames]
 (
@@ -66,7 +76,7 @@ CREATE TABLE [ConsoleGames]
 	FOREIGN KEY ([ConsoleID]) REFERENCES [Consoles]([ConsoleID])
 )
 
---DROP TABLE [Consoles];
---DROP TABLE [Games];
---DROP TABLE [Purchases];
---DROP TABLE [ConsoleGames];
+DROP TABLE [Purchases];
+DROP TABLE [Games];
+DROP TABLE [Consoles];
+DROP TABLE [ConsoleGames];
