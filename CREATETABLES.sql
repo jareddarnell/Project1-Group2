@@ -23,16 +23,33 @@ INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Ga
 
 CREATE TABLE [Games]
 (
-	[GameID] INT NOT NULL IDENTITY(1,1),
-	[GameTitle] VARCHAR(64) NOT NULL,
-	[ConsoleID] INT NOT NULL FOREIGN KEY REFERENCES [Consoles]([ConsoleID]),
-	[Rating] VARCHAR(8) NULL,
+	[GameID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	[GameRefID] INT NOT NULL,
+	[ConsoleRefID] INT NOT NULL,
 	[PlayerNumber] VARCHAR(8) NULL,
-	[Category] VARCHAR(64) NULL,
-	CONSTRAINT [PK_Games] PRIMARY KEY CLUSTERED
-	(
-		[GameID] ASC
-	)
+	[Genre] VARCHAR(64) NULL,
+	[IsOnline] BIT NOT NULL
+);
+
+ALTER TABLE Games
+ADD FOREIGN KEY ([GameRefID]) REFERENCES [Games_Ref]([GameRefID]),
+	FOREIGN KEY ([ConsoleRefID]) REFERENCES [Console_Ref]([ConsoleRefID])
+
+CREATE TABLE [Games_Ref]
+(
+	[GameRefID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	[GameTitle] VARCHAR(64) NOT NULL,
+	[Rating] VARCHAR(4) NOT NULL,
+	[Genre] VARCHAR(64) NOT NULL
+);
+
+ALTER TABLE Games_Ref
+ADD FOREIGN KEY ([Rating]) REFERENCES [ESRB]([Rating])
+
+CREATE TABLE [ESRB]
+(
+	[Rating] VARCHAR(4) NOT NULL,
+	[Description] VARCHAR(255) NOT NULL
 );
 
 INSERT [Games] (GameTitle, ConsoleID, Rating, PlayerNumber, Category) VALUES ('Call of Duty 4: Modern Warfare', 2, 'M', '1-4', 'First-person shooter')
