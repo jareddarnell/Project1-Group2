@@ -8,13 +8,13 @@ CREATE TABLE [Consoles]
 	[SubModel] VARCHAR(64) NULL
 );
 
-INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Switch', NULL)
-INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Microsoft', 'Xbox', '360')
-INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Sony', 'Playstation', '4')
-INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Nintendo 64', NULL)
-INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'NES', NULL)
-INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Sony', 'Playstation', '2')
-INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Gamecube', NULL)
+--INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Switch', NULL)
+--INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Microsoft', 'Xbox', '360')
+--INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Sony', 'Playstation', '4')
+--INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Nintendo 64', NULL)
+--INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'NES', NULL)
+--INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Sony', 'Playstation', '2')
+--INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Gamecube', NULL)
 
 --SELECT
 --	*
@@ -52,36 +52,21 @@ CREATE TABLE [ESRB]
 	[Description] VARCHAR(255) NOT NULL
 );
 
-INSERT [Games] (GameTitle, ConsoleID, Rating, PlayerNumber, Category) VALUES ('Call of Duty 4: Modern Warfare', 2, 'M', '1-4', 'First-person shooter')
+--INSERT [Games] (GameTitle, ConsoleID, Rating, PlayerNumber, Category) VALUES ('Call of Duty 4: Modern Warfare', 2, 'M', '1-4', 'First-person shooter')
 
-CREATE TABLE [Purchases]
+CREATE TABLE [GamePurchases]
 (
-	[GameID] INT NOT NULL IDENTITY(1,1),
-	--[ConsoleModel] VARCHAR(64) NOT NULL FOREIGN KEY REFERENCES [Consoles]([ConsoleModel]),		--This can't reference Consoles as it is not possible to have two primary keys in one table, Also redundant
-	[ConsoleID] INT NOT NULL FOREIGN KEY REFERENCES [Consoles]([ConsoleID]),					--Can possibly use this instead
+	[GameID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	[ConsoleID] INT NOT NULL,
 	[PurchaseDate] DATE NOT NULL,
-	[PurchasePrice] MONEY NULL,
-	[PurchaseStore] VARCHAR(64) NULL,															--Could possibly do geography data type for latitude-longitude
-	CONSTRAINT [PK_Purchases] PRIMARY KEY CLUSTERED
-	(
-		[GameID] ASC
-	)
+	[PurchasePrice] MONEY NOT NULL,
+	[PurchaseStore] VARCHAR(64) NOT NULL
 );
 
-INSERT [Purchases] (GameID, ConsoleID, PurchaseDate, PurchaseStore) VALUES (1, 2, '5-Nov-07', 50, 'GameStop')
+ALTER TABLE GamePurchases
+ADD FOREIGN KEY ([ConsoleID]) REFERENCES [Consoles]([ConsoleID])
 
-CREATE TABLE [ConsoleGames]
-(
-	[GameID] INT NOT NULL,
-	[ConsoleID] INT NOT NULL
-	CONSTRAINT [PK_ConsoleGames] PRIMARY KEY
-	(
-		[GameID],
-		[ConsoleID]
-	)
-	FOREIGN KEY ([GameID]) REFERENCES [Games]([GameID]),
-	FOREIGN KEY ([ConsoleID]) REFERENCES [Consoles]([ConsoleID])
-)
+--INSERT [Purchases] (GameID, ConsoleID, PurchaseDate, PurchaseStore) VALUES (1, 2, '5-Nov-07', 50, 'GameStop')
 
 --DROP TABLE [Consoles];
 --DROP TABLE [Games];
