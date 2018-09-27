@@ -79,6 +79,7 @@ INSERT [ConsoleRef] (ConsoleBrand, ConsoleModel) VALUES ('Nintendo', 'Nintendo 6
 INSERT [ConsoleRef] (ConsoleBrand, ConsoleModel) VALUES ('Nintendo', 'NES');
 INSERT [ConsoleRef] (ConsoleBrand, ConsoleModel) VALUES ('Sony', 'Playstation 2');
 INSERT [ConsoleRef] (ConsoleBrand, ConsoleModel) VALUES ('Nintendo', 'Gamecube');
+INSERT [ConsoleRef] (ConsoleBrand, ConsoleModel) VALUES ('Microsoft', 'Xbox One');
 
 -- Consoles
 INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (1, 1);
@@ -88,6 +89,8 @@ INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (4, 4);
 INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (5, 5);
 INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (6, 6);
 INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (7, 7);
+INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (1, 8);
+INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (8, 9);
 --INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Switch', NULL)
 --INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Microsoft', 'Xbox', '360')
 --INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Sony', 'Playstation', '4')
@@ -97,7 +100,15 @@ INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (7, 7);
 --INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Gamecube', NULL)
 
 -- ConsolePurchases
---INSERT [ConsolePurchases] (
+INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-02-12', 400.00, 'Smiths Marketplace');
+INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-02-12', 400.00, 'Smiths Marketplace');
+INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-02-12', 400.00, 'Smiths Marketplace');
+INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-02-12', 400.00, 'Smiths Marketplace');
+INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-02-12', 400.00, 'Smiths Marketplace');
+INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-02-12', 400.00, 'Smiths Marketplace');
+INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-02-12', 400.00, 'Smiths Marketplace');
+INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-02-12', 400.00, 'Smiths Marketplace');
+INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-02-12', 400.00, 'Smiths Marketplace');
 
 
 --DROP TABLE [GamePurchases];
