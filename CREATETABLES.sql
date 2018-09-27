@@ -1,27 +1,30 @@
 /* This is the document for creating the tables and insert the sample data */
+-- Create tables
+-- DROP TABLE [Consoles];
+-- DROP TABLE [ConsoleRef];
+CREATE TABLE [ConsoleRef]
+(
+    [ConsoleRefID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    [ConsoleBrand] VARCHAR(20) NOT NULL,
+    [ConsoleModel] VARCHAR(20) NOT NULL
+)
 
-DROP TABLE IF EXISTS [Consoles];
+CREATE TABLE [ConsolePurchases]
+(
+    [ConsolePurchaseID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    [PurchaseDate] DATETIME NOT NULL,
+    [PurchasePrice] DECIMAL NOT NULL,
+    [PurchaseStore] VARCHAR(50) NOT NULL
+    
+);
+
 
 CREATE TABLE [Consoles]
 (
-	[ConsoleID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	[ConsoleBrand] VARCHAR(64) NOT NULL,
-	[ConsoleModel] VARCHAR(64) NOT NULL,
-	[SubModel] VARCHAR(64) NULL
+    [ConsoleID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    [ConsoleRefID] INT NOT NULL FOREIGN KEY REFERENCES [ConsoleRef]([ConsoleRefID]),
+    [ConsolePurchaseID] INT NOT NULL FOREIGN KEY REFERENCES [ConsoleRef]([ConsoleRefID])    
 );
-
---INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Switch', NULL)
---INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Microsoft', 'Xbox', '360')
---INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Sony', 'Playstation', '4')
---INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Nintendo 64', NULL)
---INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'NES', NULL)
---INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Sony', 'Playstation', '2')
---INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Gamecube', NULL)
-
---SELECT
---	*
---FROM
---	[Consoles]
 
 CREATE TABLE [Games]
 (
@@ -54,8 +57,6 @@ CREATE TABLE [ESRB]
 	[Description] VARCHAR(255) NOT NULL
 );
 
---INSERT [Games] (GameTitle, ConsoleID, Rating, PlayerNumber, Category) VALUES ('Call of Duty 4: Modern Warfare', 2, 'M', '1-4', 'First-person shooter')
-
 CREATE TABLE [GamePurchases]
 (
 	[GameID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -68,9 +69,41 @@ CREATE TABLE [GamePurchases]
 ALTER TABLE GamePurchases
 ADD FOREIGN KEY ([ConsoleID]) REFERENCES [Consoles]([ConsoleID])
 
---INSERT [Purchases] (GameID, ConsoleID, PurchaseDate, PurchaseStore) VALUES (1, 2, '5-Nov-07', 50, 'GameStop')
+-- Seed data
 
-DROP TABLE [Purchases];
-DROP TABLE [Games];
-DROP TABLE [Consoles];
-DROP TABLE [ConsoleGames];
+-- ConsoleRefs
+INSERT [ConsoleRef] (ConsoleBrand, ConsoleModel) VALUES ('Nintendo', 'Switch');
+INSERT [ConsoleRef] (ConsoleBrand, ConsoleModel) VALUES ('Microsoft', 'Xbox 360');
+INSERT [ConsoleRef] (ConsoleBrand, ConsoleModel) VALUES ('Sony', 'Playstation 4');
+INSERT [ConsoleRef] (ConsoleBrand, ConsoleModel) VALUES ('Nintendo', 'Nintendo 64');
+INSERT [ConsoleRef] (ConsoleBrand, ConsoleModel) VALUES ('Nintendo', 'NES');
+INSERT [ConsoleRef] (ConsoleBrand, ConsoleModel) VALUES ('Sony', 'Playstation 2');
+INSERT [ConsoleRef] (ConsoleBrand, ConsoleModel) VALUES ('Nintendo', 'Gamecube');
+
+-- Consoles
+INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (1, 1);
+INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (2, 2);
+INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (3, 3);
+INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (4, 4);
+INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (5, 5);
+INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (6, 6);
+INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (7, 7);
+--INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Switch', NULL)
+--INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Microsoft', 'Xbox', '360')
+--INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Sony', 'Playstation', '4')
+--INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Nintendo 64', NULL)
+--INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'NES', NULL)
+--INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Sony', 'Playstation', '2')
+--INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Gamecube', NULL)
+
+-- ConsolePurchases
+--INSERT [ConsolePurchases] (
+
+
+--DROP TABLE [GamePurchases];
+--DROP TABLE [Games];
+--DROP TABLE [GameRef];
+--DROP TABLE [ConsolePurchases];
+--DROP TABLE [Consoles];
+--DROP TABLE [ConsoleRef];
+--DROP TABLE [ConsoleGames];
