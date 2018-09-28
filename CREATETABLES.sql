@@ -22,9 +22,13 @@ CREATE TABLE [ConsolePurchases]
 CREATE TABLE [Consoles]
 (
     [ConsoleID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-    [ConsoleRefID] INT NOT NULL FOREIGN KEY REFERENCES [ConsoleRef]([ConsoleRefID]),
-    [ConsolePurchaseID] INT NOT NULL FOREIGN KEY REFERENCES [ConsoleRef]([ConsoleRefID])    
+    [ConsoleRefID] INT NOT NULL,
+    [ConsolePurchaseID] INT NOT NULL  
 );
+
+ALTER TABLE [Consoles]
+ADD FOREIGN KEY ([ConsoleRefID]) REFERENCES [ConsoleRef]([ConsoleRefID]),
+	FOREIGN KEY ([ConsolePurchaseID]) REFERENCES [ConsolePurchases]([ConsolePurchaseID])
 
 CREATE TABLE [Games]
 (
@@ -32,7 +36,6 @@ CREATE TABLE [Games]
 	[GameRefID] INT NOT NULL,
 	[ConsoleRefID] INT NOT NULL,
 	[PlayerNumber] VARCHAR(8) NULL,
-	[Genre] VARCHAR(64) NULL,
 	[IsOnline] BIT NOT NULL
 );
 
@@ -60,7 +63,6 @@ CREATE TABLE [ESRB]
 CREATE TABLE [GamePurchases]
 (
 	[GameID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	[ConsoleID] INT NOT NULL,
 	[PurchaseDate] DATE NOT NULL,
 	[PurchasePrice] MONEY NOT NULL,
 	[PurchaseStore] VARCHAR(64) NOT NULL
@@ -81,16 +83,6 @@ INSERT [ConsoleRef] (ConsoleBrand, ConsoleModel) VALUES ('Sony', 'Playstation 2'
 INSERT [ConsoleRef] (ConsoleBrand, ConsoleModel) VALUES ('Nintendo', 'Gamecube');
 INSERT [ConsoleRef] (ConsoleBrand, ConsoleModel) VALUES ('Microsoft', 'Xbox One');
 
--- Consoles
-INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (1, 1);
-INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (2, 2);
-INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (3, 3);
-INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (4, 4);
-INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (5, 5);
-INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (6, 6);
-INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (7, 7);
-INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (1, 8);
-INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (8, 9);
 --INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Switch', NULL)
 --INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Microsoft', 'Xbox', '360')
 --INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Sony', 'Playstation', '4')
@@ -101,14 +93,55 @@ INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (8, 9);
 
 -- ConsolePurchases
 INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-02-12', 400.00, 'Smiths Marketplace');
-INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-02-12', 400.00, 'Smiths Marketplace');
-INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-02-12', 400.00, 'Smiths Marketplace');
-INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-02-12', 400.00, 'Smiths Marketplace');
-INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-02-12', 400.00, 'Smiths Marketplace');
-INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-02-12', 400.00, 'Smiths Marketplace');
-INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-02-12', 400.00, 'Smiths Marketplace');
-INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-02-12', 400.00, 'Smiths Marketplace');
-INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-02-12', 400.00, 'Smiths Marketplace');
+INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2015-02-12', 349.99, 'Gamestop');
+INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2017-02-12', 400.00, 'Walmart');
+INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2014-02-12', 100.00, 'Amazon');
+INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('1999-02-12', 200.00, 'Fred Meyers');
+INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2002-02-12', 200.00, 'Gamestop');
+INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2002-02-12', 250.00, 'Walmart');
+INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2016-02-12', 400.00, 'Smiths Marketplace');
+INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-04-20', 400.00, 'Smiths Marketplace');
+
+-- Consoles
+INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (1, 1);
+INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (2, 2);
+INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (3, 3);
+INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (4, 4);
+INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (5, 5);
+INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (6, 6);
+INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (7, 7);
+INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (1, 8);
+INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (8, 9);
+
+-- Games_Ref
+INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Call of Duty 4: Modern Warfare', 'M', 'First-Person Shooter');
+INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Ratchet and Clank', 'E 10+', 'Third-Person Shooter');
+INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Mario Party', 'E', 'Party');
+INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Legend of Zelda: Breath of the Wild', 'E 10+', 'Action-Adventure');
+INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Legend of Zelda: Ocarina of Time', 'E', 'Action-Adventure');
+INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Super Mario Bros', 'E', 'Platformer');
+INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Elder Scrolls V: Skyrim', 'M', 'Action Role-playing');
+INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Mario Kart 64', 'E', 'Kart Racing');
+INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Kingdom Hearts', 'E', 'Action Role-playing');
+INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Duck Hunt', 'E', 'Sports');
+INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Luigi''s Mansion', 'E', 'Action-Adventure');
+
+-- Games
+INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (1, 2, '1-4', 1);
+INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (2, 5, '1', 0);
+INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (3, 4, '1-4', 1);
+INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (4, 1, '1', 0);
+INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (5, 4, '1', 0);
+INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (6, 5, '1-2', 0);
+INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (7, 2, '1', 0);
+INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (8, 4, '1-4', 0);
+INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (9, 6, '1', 0);
+INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (10, 4, '1-2', 0);
+INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (7, 3, '1', 0);
+INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (11, 7, '1', 0);
+
+-- GamePurchases
+INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (1, '2018-02-12', 60.00, 'Amazon');
 
 
 --DROP TABLE [GamePurchases];
