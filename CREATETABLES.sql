@@ -2,6 +2,7 @@
 -- Create tables
 -- DROP TABLE [Consoles];
 -- DROP TABLE [Console_Ref];
+
 CREATE TABLE [Console_Ref]
 (
     [ConsoleRefID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -209,8 +210,8 @@ INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALU
 --select * from dbo.games
 --select * from dbo.games_ref
 
-select * 
-from dbo.Console_Ref CR
-inner join dbo.Consoles C on CR.ConsoleRefID = C.ConsoleRefID
-inner join dbo.ConsolePurchases CP on C.ConsolePurchaseID = CP.ConsolePurchaseID
+--select * 
+--from dbo.Console_Ref CR
+--inner join dbo.Consoles C on CR.ConsoleRefID = C.ConsoleRefID
+--inner join dbo.ConsolePurchases CP on C.ConsolePurchaseID = CP.ConsolePurchaseID
 
