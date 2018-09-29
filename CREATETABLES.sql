@@ -1,7 +1,14 @@
 /* This is the document for creating the tables and insert the sample data */
 -- Create tables
--- DROP TABLE [Consoles];
--- DROP TABLE [ConsoleRef];
+
+--DROP TABLE [Consoles];
+--DROP TABLE [ConsolePurchases];
+--DROP TABLE [ConsoleRef];
+--DROP TABLE [Games];
+--DROP TABLE [GamePurchases];
+--DROP TABLE [GameRef];
+--DROP TABLE [ESRB];
+
 CREATE TABLE [ConsoleRef]
 (
     [ConsoleRefID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
@@ -43,7 +50,7 @@ ALTER TABLE Games
 ADD FOREIGN KEY ([GameRefID]) REFERENCES [Games_Ref]([GameRefID]),
 	FOREIGN KEY ([ConsoleRefID]) REFERENCES [Console_Ref]([ConsoleRefID])
 
-CREATE TABLE [Games_Ref]
+CREATE TABLE [GamesRef]
 (
 	[GameRefID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	[GameTitle] VARCHAR(64) NOT NULL,
@@ -51,7 +58,7 @@ CREATE TABLE [Games_Ref]
 	[Genre] VARCHAR(64) NOT NULL
 );
 
-ALTER TABLE Games_Ref
+ALTER TABLE GamesRef
 ADD FOREIGN KEY ([Rating]) REFERENCES [ESRB]([Rating])
 
 CREATE TABLE [ESRB]
@@ -113,18 +120,26 @@ INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (7, 7);
 INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (1, 8);
 INSERT [Consoles] (ConsoleRefID, ConsolePurchaseID) VALUES (8, 9);
 
+--ESRB Ratings
+INSERT [ESRB] (Rating, Description) VALUES ('EC', 'Early Childhood');
+INSERT [ESRB] (Rating, Description) VALUES ('E', 'Everyone');
+INSERT [ESRB] (Rating, Description) VALUES ('E10+', 'Everyone 10 and up');
+INSERT [ESRB] (Rating, Description) VALUES ('T', 'Teen');
+INSERT [ESRB] (Rating, Description) VALUES ('M', 'Mature');
+INSERT [ESRB] (Rating, Description) VALUES ('AO', 'Adults Only');
+
 -- Games_Ref
-INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Call of Duty 4: Modern Warfare', 'M', 'First-Person Shooter');
-INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Ratchet and Clank', 'E 10+', 'Third-Person Shooter');
-INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Mario Party', 'E', 'Party');
-INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Legend of Zelda: Breath of the Wild', 'E 10+', 'Action-Adventure');
-INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Legend of Zelda: Ocarina of Time', 'E', 'Action-Adventure');
-INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Super Mario Bros', 'E', 'Platformer');
-INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Elder Scrolls V: Skyrim', 'M', 'Action Role-playing');
-INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Mario Kart 64', 'E', 'Kart Racing');
-INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Kingdom Hearts', 'E', 'Action Role-playing');
-INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Duck Hunt', 'E', 'Sports');
-INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Luigi''s Mansion', 'E', 'Action-Adventure');
+INSERT [GamesRef] (GameTitle, Rating, Genre) VALUES ('Call of Duty 4: Modern Warfare', 'M', 'First-Person Shooter');
+INSERT [GamesRef] (GameTitle, Rating, Genre) VALUES ('Ratchet and Clank', 'E 10+', 'Third-Person Shooter');
+INSERT [GamesRef] (GameTitle, Rating, Genre) VALUES ('Mario Party', 'E', 'Party');
+INSERT [GamesRef] (GameTitle, Rating, Genre) VALUES ('Legend of Zelda: Breath of the Wild', 'E 10+', 'Action-Adventure');
+INSERT [GamesRef] (GameTitle, Rating, Genre) VALUES ('Legend of Zelda: Ocarina of Time', 'E', 'Action-Adventure');
+INSERT [GamesRef] (GameTitle, Rating, Genre) VALUES ('Super Mario Bros', 'E', 'Platformer');
+INSERT [GamesRef] (GameTitle, Rating, Genre) VALUES ('Elder Scrolls V: Skyrim', 'M', 'Action Role-playing');
+INSERT [GamesRef] (GameTitle, Rating, Genre) VALUES ('Mario Kart 64', 'E', 'Kart Racing');
+INSERT [GamesRef] (GameTitle, Rating, Genre) VALUES ('Kingdom Hearts', 'E', 'Action Role-playing');
+INSERT [GamesRef] (GameTitle, Rating, Genre) VALUES ('Duck Hunt', 'E', 'Sports');
+INSERT [GamesRef] (GameTitle, Rating, Genre) VALUES ('Luigi''s Mansion', 'E', 'Action-Adventure');
 
 -- Games
 INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (1, 2, '1-4', 1);
@@ -142,12 +157,15 @@ INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (11, 7, 
 
 -- GamePurchases
 INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (1, '2018-02-12', 60.00, 'Amazon');
+INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (2, '2018-02-12', 60.00, 'Amazon');
+INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (3, '2018-02-12', 60.00, 'Amazon');
+INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (4, '2018-02-12', 60.00, 'Amazon');
+INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (5, '2018-02-12', 60.00, 'Amazon');
+INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (6, '2018-02-12', 60.00, 'Amazon');
+INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (7, '2018-02-12', 60.00, 'Amazon');
+INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (8, '2018-02-12', 60.00, 'Amazon');
+INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (9, '2018-02-12', 60.00, 'Amazon');
+INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (10, '2018-02-12', 60.00, 'Amazon');
+INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (11, '2018-02-12', 60.00, 'Amazon');
+INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (12, '2018-02-12', 60.00, 'Amazon');
 
-
---DROP TABLE [GamePurchases];
---DROP TABLE [Games];
---DROP TABLE [GameRef];
---DROP TABLE [ConsolePurchases];
---DROP TABLE [Consoles];
---DROP TABLE [ConsoleRef];
---DROP TABLE [ConsoleGames];
