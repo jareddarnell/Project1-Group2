@@ -1,15 +1,15 @@
 /* This is the document for creating the tables and insert the sample data */
 -- Create tables
 
---DROP TABLE [Consoles];
---DROP TABLE [ConsolePurchases];
---DROP TABLE [ConsoleRef];
---DROP TABLE [Games];
---DROP TABLE [GamePurchases];
---DROP TABLE [GameRef];
---DROP TABLE [ESRB];
+DROP TABLE [Consoles];
+DROP TABLE [Games];
+DROP TABLE [ConsolePurchases];
+DROP TABLE [GamePurchases];
+DROP TABLE [Consoles_Ref];
+DROP TABLE [Games_Ref];
+DROP TABLE [ESRB];
 
-CREATE TABLE [ConsoleRef]
+CREATE TABLE [Consoles_Ref]
 (
     [ConsoleRefID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
     [ConsoleBrand] VARCHAR(20) NOT NULL,
@@ -34,8 +34,26 @@ CREATE TABLE [Consoles]
 );
 
 ALTER TABLE [Consoles]
-ADD FOREIGN KEY ([ConsoleRefID]) REFERENCES [Console_Ref]([ConsoleRefID]),
-	FOREIGN KEY ([ConsolePurchaseID]) REFERENCES [ConsolePurchases]([ConsolePurchaseID])
+ADD FOREIGN KEY ([ConsoleRefID]) REFERENCES [Consoles_Ref]([ConsoleRefID]),
+	FOREIGN KEY ([ConsolePurchaseID]) REFERENCES [ConsolePurchases]([ConsolePurchaseID]);
+
+
+CREATE TABLE [ESRB]
+(
+	[Rating] VARCHAR(8) NOT NULL PRIMARY KEY,
+	[Description] VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE [Games_Ref]
+(
+	[GameRefID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	[GameTitle] VARCHAR(64) NOT NULL,
+	[Rating] VARCHAR(8) NOT NULL,
+	[Genre] VARCHAR(64) NOT NULL
+);
+
+ALTER TABLE Games_Ref
+ADD FOREIGN KEY ([Rating]) REFERENCES [ESRB]([Rating]);
 
 CREATE TABLE [Games]
 (
@@ -48,32 +66,7 @@ CREATE TABLE [Games]
 
 ALTER TABLE Games
 ADD FOREIGN KEY ([GameRefID]) REFERENCES [Games_Ref]([GameRefID]),
-	FOREIGN KEY ([ConsoleRefID]) REFERENCES [Console_Ref]([ConsoleRefID])
-
-CREATE TABLE [GamesRef]
-(
-	[GameRefID] INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	[GameTitle] VARCHAR(64) NOT NULL,
-	[Rating] VARCHAR(8) NOT NULL,
-	[Genre] VARCHAR(64) NOT NULL
-);
-
-ALTER TABLE GamesRef
-ADD FOREIGN KEY ([Rating]) REFERENCES [ESRB]([Rating])
-
-CREATE TABLE [ESRB]
-(
-	[Rating] VARCHAR(8) NOT NULL PRIMARY KEY,
-	[Description] VARCHAR(255) NOT NULL
-);
-
-ALTER TABLE Games
-ADD FOREIGN KEY ([GameRefID]) REFERENCES [Games_Ref]([GameRefID]),
-	FOREIGN KEY ([ConsoleRefID]) REFERENCES [Console_Ref]([ConsoleRefID])
-
-ALTER TABLE Games_Ref
-ADD FOREIGN KEY ([Rating]) REFERENCES [ESRB]([Rating])
-
+	FOREIGN KEY ([ConsoleRefID]) REFERENCES [Consoles_Ref]([ConsoleRefID]);
 
 
 CREATE TABLE [GamePurchases]
@@ -85,34 +78,23 @@ CREATE TABLE [GamePurchases]
 );
 
 ALTER TABLE GamePurchases
-ADD CONSTRAINT pk_GameID PRIMARY KEY (GameID, PurchaseDate)
-
-
-
+ADD CONSTRAINT pk_GameID PRIMARY KEY (GameID, PurchaseDate);
 
 -- Seed data
 
 -- ConsoleRefs
-INSERT [Console_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Nintendo', 'Switch');
-INSERT [Console_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Microsoft', 'Xbox 360');
-INSERT [Console_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Sony', 'Playstation 4');
-INSERT [Console_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Nintendo', 'Nintendo 64');
-INSERT [Console_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Nintendo', 'NES');
-INSERT [Console_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Sony', 'Playstation 2');
-INSERT [Console_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Nintendo', 'Gamecube');
-INSERT [Console_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Microsoft', 'Xbox One');
-INSERT [Console_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Sega', 'Genisis');
-INSERT [Console_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Sega', 'Game Gear');
-INSERT [Console_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Magnavox', 'Odyssey');
-INSERT [Console_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Atari', '2600');
-
---INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Switch', NULL)
---INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Microsoft', 'Xbox', '360')
---INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Sony', 'Playstation', '4')
---INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Nintendo 64', NULL)
---INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'NES', NULL)
---INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Sony', 'Playstation', '2')
---INSERT [Consoles] (ConsoleBrand, ConsoleModel, SubModel) VALUES ('Nintendo', 'Gamecube', NULL)
+INSERT [Consoles_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Nintendo', 'Switch');
+INSERT [Consoles_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Microsoft', 'Xbox 360');
+INSERT [Consoles_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Sony', 'Playstation 4');
+INSERT [Consoles_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Nintendo', 'Nintendo 64');
+INSERT [Consoles_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Nintendo', 'NES');
+INSERT [Consoles_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Sony', 'Playstation 2');
+INSERT [Consoles_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Nintendo', 'Gamecube');
+INSERT [Consoles_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Microsoft', 'Xbox One');
+INSERT [Consoles_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Sega', 'Genisis');
+INSERT [Consoles_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Sega', 'Game Gear');
+INSERT [Consoles_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Magnavox', 'Odyssey');
+INSERT [Consoles_Ref] (ConsoleBrand, ConsoleModel) VALUES ('Atari', '2600');
 
 -- ConsolePurchases
 INSERT [ConsolePurchases] (PurchaseDate, PurchasePrice, PurchaseStore) VALUES ('2018-02-12', 400.00, 'Smiths Marketplace');
@@ -151,14 +133,6 @@ INSERT [ESRB] (Rating, Description) Values ('E 10+', 'Everyone 10 and up');
 INSERT [ESRB] (Rating, Description) Values ('T', 'Teen');
 INSERT [ESRB] (Rating, Description) Values ('M', 'Mature');
 INSERT [ESRB] (Rating, Description) Values ('AO', 'Adults Only');
-
---ESRB Ratings
-INSERT [ESRB] (Rating, Description) VALUES ('EC', 'Early Childhood');
-INSERT [ESRB] (Rating, Description) VALUES ('E', 'Everyone');
-INSERT [ESRB] (Rating, Description) VALUES ('E10+', 'Everyone 10 and up');
-INSERT [ESRB] (Rating, Description) VALUES ('T', 'Teen');
-INSERT [ESRB] (Rating, Description) VALUES ('M', 'Mature');
-INSERT [ESRB] (Rating, Description) VALUES ('AO', 'Adults Only');
 
 -- Games_Ref
 INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Call of Duty 4: Modern Warfare', 'M', 'First-Person Shooter');
@@ -229,19 +203,11 @@ INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALU
 INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (20, '2015-01-02', 55.00, 'GameStop');
 
 
---select * from dbo.Console_Ref
---select * from dbo.consolepurchases
---select * from dbo.consoles
---select * from dbo.esrb
---select * from dbo.gamepurchases
---select * from dbo.games
---select * from dbo.games_ref
-
---DROP TABLE [GamePurchases];
---DROP TABLE [Games];
---DROP TABLE [Games_Ref];
---DROP TABLE [Consoles];
---DROP TABLE [Console_Ref];
---DROP TABLE [ConsolePurchases];
---DROP TABLE [ESRB];
+select * from dbo.Consoles_Ref
+select * from dbo.consolepurchases
+select * from dbo.consoles
+select * from dbo.esrb
+select * from dbo.gamepurchases
+select * from dbo.games
+select * from dbo.games_ref
 

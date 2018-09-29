@@ -3,7 +3,7 @@
 SELECT
 	(ConsoleBrand + ConsoleModel) AS [Consoles]
 FROM
-	dbo.Console_Ref
+	dbo.Consoles_Ref
 ;
 
 --2
@@ -21,7 +21,7 @@ SELECT
 FROM
 	dbo.Games G
 	LEFT JOIN dbo.Games_Ref GR ON G.GameRefID = GR.GameRefID
-	LEFT JOIN dbo.Console_Ref CR ON CR.ConsoleRefID = G.ConsoleRefID
+	LEFT JOIN dbo.Consoles_Ref CR ON CR.ConsoleRefID = G.ConsoleRefID
 
 WHERE
 	CR.ConsoleModel = 'Xbox One'
@@ -40,7 +40,7 @@ FROM
 		FROM
 			dbo.Games G
 			LEFT JOIN dbo.Games_Ref GR ON G.GameRefID = GR.GameRefID
-			LEFT JOIN dbo.Console_Ref CR ON CR.ConsoleRefID = G.ConsoleRefID
+			LEFT JOIN dbo.Consoles_Ref CR ON CR.ConsoleRefID = G.ConsoleRefID
 
 		GROUP BY
 			GR.GameTitle
@@ -49,7 +49,7 @@ FROM
 			count(GR.GameTitle) > 1) GT
 	LEFT JOIN dbo.Games_Ref GR ON GT.GameTitle = GR.GameTitle
 	LEFT JOIN dbo.Games G ON G.GameRefID = GR.GameRefID
-	LEFT JOIN dbo.Console_Ref CR ON CR.ConsoleRefID = G.ConsoleRefID
+	LEFT JOIN dbo.Consoles_Ref CR ON CR.ConsoleRefID = G.ConsoleRefID
 ;
 
 --5
@@ -60,7 +60,7 @@ SELECT
 FROM
 	dbo.Games_Ref GR 
 	LEFT JOIN dbo.Games G ON G.GameRefID = GR.GameRefID
-	LEFT JOIN dbo.Console_Ref CR ON CR.ConsoleRefID = G.ConsoleRefID
+	LEFT JOIN dbo.Consoles_Ref CR ON CR.ConsoleRefID = G.ConsoleRefID
 
 WHERE
 	GR.Genre LIKE'%Role-Playing%'
