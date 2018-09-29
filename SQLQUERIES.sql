@@ -30,7 +30,7 @@ WHERE
 --4
 SELECT
 	GT.GameTitle,
-	(CR.ConsoleBrand + ' ' + CR.ConsoleModel) As [Console]
+	(CR.ConsoleBrand + ' ' + CR.ConsoleModel) AS [Console]
 		
 FROM
 	(SELECT 
@@ -63,5 +63,5 @@ FROM
 	LEFT JOIN dbo.Console_Ref CR ON CR.ConsoleRefID = G.ConsoleRefID
 
 WHERE
-	GR.Genre like'%Role-Playing%'
+	GR.Genre LIKE'%Role-Playing%'
 ;
