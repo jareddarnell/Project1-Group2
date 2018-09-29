@@ -1,7 +1,5 @@
 /* This is the document for creating the tables and insert the sample data */
--- Create tables
--- DROP TABLE [Consoles];
--- DROP TABLE [Console_Ref];
+
 
 CREATE TABLE [Console_Ref]
 (
@@ -75,8 +73,7 @@ ALTER TABLE GamePurchases
 ADD CONSTRAINT pk_GameID PRIMARY KEY (GameID, PurchaseDate)
 
 
---ALTER TABLE GamePurchases
---ADD FOREIGN KEY ([ConsoleID]) REFERENCES [Consoles]([ConsoleID])
+
 
 -- Seed data
 
@@ -156,6 +153,11 @@ INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Asteroids', 'E', 'Action'
 INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Dig Dug', 'E', 'Action');
 INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Shoutout!', 'E', 'Action');
 INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Analogic', 'E', 'Strategy');
+INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Fallout 4', 'M', 'Action Role-Playing');
+INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Resident Evil 6', 'M', 'Survival Horror');
+INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Shadow Warrior 2', 'M', 'First-Person Shooter');
+INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Shadow Warrior ', 'M', 'First-Person Shooter');
+INSERT [Games_Ref] (GameTitle, Rating, Genre) VALUES ('Destiny', 'T', 'Action Role-Playing');
 
 -- Games
 INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (1, 2, '1-4', 1);
@@ -174,6 +176,11 @@ INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (12, 9, 
 INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (13, 10, '1', 0);
 INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (14, 11, '1', 0);
 INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (15, 12, '2', 0);
+INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (16, 8, '1', 0);
+INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (17, 8, '1-2', 0);
+INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (18, 8, '1-2', 1);
+INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (19, 8, '1', 1);
+INSERT [Games] (GameRefID, ConsoleRefID, PlayerNumber, IsOnline) VALUES (20, 8, '1-4', 0);
 
 -- GamePurchases
 INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (1, '2007-11-05', 50.00, 'GameStop');
@@ -192,15 +199,12 @@ INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALU
 INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (13, '1983-08-26', 20.00, 'Radio Shack');
 INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (14, '1973-12-20', 15.00, 'Magnavox');
 INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (15, '1974-04-16', 15.00, 'Magnavox');
+INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (16, '2015-11-10', 60.00, 'Walmart');
+INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (17, '2015-10-12', 60.00, 'Best Buy');
+INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (18, '2017-07-25', 50.00, 'Amazon');
+INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (19, '2014-12-15', 45.00, 'GameStop');
+INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (20, '2015-01-02', 55.00, 'GameStop');
 
-
---DROP TABLE [GamePurchases];
---DROP TABLE [Games];
---DROP TABLE [Games_Ref];
---DROP TABLE [Consoles];
---DROP TABLE [Console_Ref];
---DROP TABLE [ConsolePurchases];
---DROP TABLE [ESRB];
 
 --select * from dbo.Console_Ref
 --select * from dbo.consolepurchases
@@ -210,8 +214,11 @@ INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALU
 --select * from dbo.games
 --select * from dbo.games_ref
 
---select * 
---from dbo.Console_Ref CR
---inner join dbo.Consoles C on CR.ConsoleRefID = C.ConsoleRefID
---inner join dbo.ConsolePurchases CP on C.ConsolePurchaseID = CP.ConsolePurchaseID
+--DROP TABLE [GamePurchases];
+--DROP TABLE [Games];
+--DROP TABLE [Games_Ref];
+--DROP TABLE [Consoles];
+--DROP TABLE [Console_Ref];
+--DROP TABLE [ConsolePurchases];
+--DROP TABLE [ESRB];
 
