@@ -1,13 +1,13 @@
 /* This is the document for creating the tables and insert the sample data */
 -- Create tables
 
---DROP TABLE [Consoles];
---DROP TABLE [Games];
---DROP TABLE [ConsolePurchases];
---DROP TABLE [GamePurchases];
---DROP TABLE [Consoles_Ref];
---DROP TABLE [Games_Ref];
---DROP TABLE [ESRB];
+--DROP TABLE [Consoles]; 
+--DROP TABLE [ConsolePurchases]; 
+--DROP TABLE [GamePurchases]; 
+--DROP TABLE [Games]; 
+--DROP TABLE [Games_Ref]; 
+--DROP TABLE [ESRB]; 
+--DROP TABLE [Consoles_Ref]; 
 
 CREATE TABLE [Consoles_Ref]
 (
@@ -204,11 +204,11 @@ INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALU
 INSERT [GamePurchases] (GameID, PurchaseDate, PurchasePrice, PurchaseStore) VALUES (20, '2015-01-02', 55.00, 'GameStop');
 
 
-select * from dbo.Consoles_Ref
-select * from dbo.consolepurchases
-select * from dbo.consoles
-select * from dbo.esrb
-select * from dbo.gamepurchases
-select * from dbo.games
-select * from dbo.games_ref
+--select * from Consoles_Ref
+--select * from consolepurchases
+--select * from consoles
+--select * from esrb
+--select * from gamepurchases
+--select * from games
+--select * from games_ref
 
