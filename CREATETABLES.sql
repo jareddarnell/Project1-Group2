@@ -1,13 +1,13 @@
 /* This is the document for creating the tables and insert the sample data */
 -- Create tables
 
-DROP TABLE [Consoles];
-DROP TABLE [Games];
-DROP TABLE [ConsolePurchases];
-DROP TABLE [GamePurchases];
-DROP TABLE [Consoles_Ref];
-DROP TABLE [Games_Ref];
-DROP TABLE [ESRB];
+--DROP TABLE [Consoles];
+--DROP TABLE [Games];
+--DROP TABLE [ConsolePurchases];
+--DROP TABLE [GamePurchases];
+--DROP TABLE [Consoles_Ref];
+--DROP TABLE [Games_Ref];
+--DROP TABLE [ESRB];
 
 CREATE TABLE [Consoles_Ref]
 (
@@ -78,7 +78,8 @@ CREATE TABLE [GamePurchases]
 );
 
 ALTER TABLE GamePurchases
-ADD CONSTRAINT pk_GameID PRIMARY KEY (GameID, PurchaseDate);
+ADD FOREIGN KEY ([GameID]) REFERENCES [Games]([GameID]),
+	CONSTRAINT pk_GameID PRIMARY KEY (GameID, PurchaseDate);
 
 -- Seed data
 
